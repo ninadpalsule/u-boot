@@ -23,6 +23,11 @@
 		#size-cells = <2>;
 
 		#include "ast2700-evb-reserved-mem.dtsi"
+
+		event_log: tcg_event_log@431c00000 {
+			no-map;
+			reg = <0x4 0x31c00000 0x0 0x100000>;
+		};
 	};
 };
 
@@ -71,6 +76,22 @@
 	};
 };
 
+&spi2 {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_spi2_default>;
+	compatible = "aspeed,ast2700-spi-txrx";
+	spi-aspeed-full-duplex;
+
+	tpm0: tpmdev@0 {
+		compatible = "tcg,tpm_tis-spi";
+		spi-max-frequency = <500000>;
+		reg = <0>;
+		memory-region = <&event_log>;
+		status = "okay";
+	};
+};
+
 &ufs {
 	status = "okay";
 };
@@ -85,6 +106,12 @@
 
 &i2c2 {
 	status = "okay";
+
+	tpm1: tpm@2e {
+		compatible = "nuvoton,npct75x";
+		reg = <0x2e>;
+		memory-region = <&event_log>;
+	};
 };
 
 &i2c3 {
