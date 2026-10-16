@@ -51,16 +51,20 @@
 	status = "okay";
 	phy-mode = "NC-SI";
 	use-ncsi;
+
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_rmii0_default>;
+	pinctrl-0 = <&pinctrl_rmii0_default>,
+		    <&pinctrl_rmii0_rclko_default>;
 };
 
 &mac1 {
 	status = "okay";
 	phy-mode = "NC-SI";
 	use-ncsi;
+
 	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_rmii1_default>;
+	pinctrl-0 = <&pinctrl_rmii1_default>,
+		    <&pinctrl_rmii1_rclko_default>;
 };
 
 &fmc {
